@@ -1,11 +1,9 @@
-import {
-  Container,
-  Filters,
-  Title,
-  TopBar,
-} from '@/src/shared/components/shared'
+import { Container } from '@/src/shared/components/shared/Container'
+import { Filters } from '@/src/shared/components/shared/Filters'
 import ProductsGroupList from '@/src/shared/components/shared/ProductsGroupList'
 import { Stories } from '@/src/shared/components/shared/Stories'
+import { Title } from '@/src/shared/components/shared/Title'
+import { TopBar } from '@/src/shared/components/shared/TopBar'
 import { findPizzas, GetSearchParams } from '@/src/shared/lib/findPizzas'
 import { Suspense } from 'react'
 

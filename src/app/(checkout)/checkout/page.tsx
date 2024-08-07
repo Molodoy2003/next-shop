@@ -1,12 +1,13 @@
 'use client'
 
-import { Container, Title } from '@/src/shared/components/shared'
 import {
   CheckoutFormSchema,
   CheckoutFormValues,
 } from '@/src/shared/components/shared/checkout/CheckoutFormSchema'
 import { CheckoutLeftSide } from '@/src/shared/components/shared/checkout/CheckoutLeftSide'
 import { CheckoutRightSide } from '@/src/shared/components/shared/checkout/CheckoutRightSide'
+import { Container } from '@/src/shared/components/shared/Container'
+import { Title } from '@/src/shared/components/shared/Title'
 import { useFerchCart } from '@/src/shared/hooks/use-fetch-cart'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'

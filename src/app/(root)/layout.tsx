@@ -1,4 +1,4 @@
-import { Header } from '@/src/shared/components/shared'
+import { Header } from '@/src/shared/components/shared/Header'
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 
