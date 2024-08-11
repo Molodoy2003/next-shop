@@ -3,6 +3,10 @@ import qs from 'qs'
 import { useEffect, useRef } from 'react'
 import { IFilters } from './use-filters'
 
+/*
+  isMounted сделал для того, чтобы когда ты переходить после оплаты на главную страницу, у тебя не рендерились фильтры, а только после первого раза!
+*/
+
 export const useQueryFilters = (filters: IFilters) => {
   const router = useRouter()
   const isMounted = useRef(false)

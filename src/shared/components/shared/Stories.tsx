@@ -27,7 +27,6 @@ export const Stories: FC<Props> = ({ className }) => {
     fetchStories()
   }, [])
 
-  // закрытие модалки на клик вне ёё
   useEffect(() => {
     if (open) {
       const handleClickOutside = (event: MouseEvent) => {
@@ -35,7 +34,7 @@ export const Stories: FC<Props> = ({ className }) => {
           modalRef.current &&
           !modalRef.current.contains(event.target as Node)
         ) {
-          setOpen(false)
+          closeModal()
         }
       }
 
@@ -50,8 +49,20 @@ export const Stories: FC<Props> = ({ className }) => {
     setSelectedStory(story)
 
     if (story.items.length > 0) {
-      setOpen(true)
+      openModal()
     }
+  }
+
+  // при открытии модалки скролим наверх и блокируем скролл
+  const openModal = () => {
+    setOpen(true)
+    window.scrollTo(0, 0)
+    document.body.style.overflow = 'hidden'
+  }
+
+  const closeModal = () => {
+    setOpen(false)
+    document.body.style.overflow = ''
   }
 
   return (
@@ -94,7 +105,7 @@ export const Stories: FC<Props> = ({ className }) => {
             >
               <button
                 className='absolute -right-10 -top-5 z-30'
-                onClick={() => setOpen(false)}
+                onClick={closeModal}
               >
                 <X
                   className='absolute top-0 right-0 w-8 h-8
@@ -103,7 +114,7 @@ export const Stories: FC<Props> = ({ className }) => {
               </button>
 
               <ReactStories
-                onAllStoriesEnd={() => setOpen(false)}
+                onAllStoriesEnd={closeModal}
                 stories={
                   selectedStory?.items.map(item => ({ url: item.sourceUrl })) ||
                   []

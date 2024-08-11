@@ -4,8 +4,9 @@ import { prisma } from '@/prisma/prisma-client'
 import { OrderStatus, Prisma } from '@prisma/client'
 import { hashSync } from 'bcrypt'
 import { cookies } from 'next/headers'
+import { CartItemDTO } from '../@types/types'
 import { CheckoutFormValues } from '../shared/components/shared/checkout/CheckoutFormSchema'
-import { PayOrder } from '../shared/components/shared/email-templates/PayOrder'
+import { OrderSuccess } from '../shared/components/shared/email-templates/OrderSuccess'
 import { VerificationUser } from '../shared/components/shared/email-templates/VerificationUser'
 import { createPayment } from '../shared/lib/create-payment'
 import { getUserSession } from '../shared/lib/getUserSession'
@@ -63,7 +64,7 @@ export const createOrder = async (data: CheckoutFormValues) => {
       },
     })
 
-    //! очищаем корзину
+    //! очищаем totalAmount корзины
     await prisma.cart.update({
       where: {
         id: userCart.id,
@@ -73,12 +74,14 @@ export const createOrder = async (data: CheckoutFormValues) => {
       },
     })
 
+    // удаляем все товары в корзине
     await prisma.cartItem.deleteMany({
       where: {
         cartId: userCart.id,
       },
     })
 
+    // Создание оплаты
     const paymentData = await createPayment({
       amount: order.totalAmount,
       orderId: order.id,
@@ -89,6 +92,7 @@ export const createOrder = async (data: CheckoutFormValues) => {
       throw new Error('Payment data not found')
     }
 
+    // обновляем заказ (если что, через paymentId можно отменить заказ)
     await prisma.order.update({
       where: {
         id: order.id,
@@ -98,15 +102,18 @@ export const createOrder = async (data: CheckoutFormValues) => {
       },
     })
 
+    // перенаправление на оплату
     const paymentUrl = paymentData.confirmation.confirmation_url
+
+    // конвертируем items, подходящий для функции orderSuccess
+    const items = JSON.parse(order?.items as string) as CartItemDTO[]
 
     await sendEmail(
       data.email,
-      `Оплатите заказ №${order.id}`,
-      PayOrder({
+      `TasteTown | Оплачен заказ №${order.id}`,
+      OrderSuccess({
         orderId: order.id,
-        totalAmount: order.totalAmount,
-        paymentUrl,
+        items,
       })
     )
 
@@ -146,7 +153,6 @@ export async function updateUserInfo(body: Prisma.UserCreateInput) {
     throw error
   }
 }
-
 export async function registerUser(body: Prisma.UserCreateInput) {
   try {
     const user = await prisma.user.findFirst({
@@ -182,13 +188,13 @@ export async function registerUser(body: Prisma.UserCreateInput) {
 
     await sendEmail(
       createdUser.email,
-      'Подтверждение регистрации 📝',
+      '📝 Подтверждение регистрации',
       VerificationUser({
         code,
       })
     )
   } catch (err) {
-    console.log('Error [CREATE_USER]', err)
+    console.log(err)
     throw err
   }
 }

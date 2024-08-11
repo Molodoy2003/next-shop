@@ -1,7 +1,7 @@
 'use client'
 
 import { cn } from '@/src/shared/lib/utils'
-import { CircleUser, User } from 'lucide-react'
+import { ArrowUp, CircleUser, User } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -13,6 +13,11 @@ import { CartButton } from './CartButton'
 import { Container } from './Container'
 import { SearchInput } from './SearchInput'
 import { AuthModal } from './modals/auth-modal/auth-modal'
+
+/*
+  useEffect используем для показа notify после успешной оплаты или после успешной верификации
+  useSession - берет из контекста информацию об авторизации
+*/
 
 type Props = {
   hasSearch?: boolean
@@ -28,8 +33,8 @@ export const Header: FC<Props> = ({
   const router = useRouter()
   const { data: session } = useSession()
   const [openModal, setOpenModal] = useState(false)
-
   const searchParams = useSearchParams()
+  const [showScrollToTop, setShowScrollToTop] = useState(false)
 
   useEffect(() => {
     let toastMessage = ''
@@ -51,6 +56,28 @@ export const Header: FC<Props> = ({
       }, 1000)
     }
   }, [searchParams, router])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 400) {
+        setShowScrollToTop(true)
+      } else {
+        setShowScrollToTop(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }
 
   return (
     <header className={cn('border-b', className)}>
@@ -96,9 +123,22 @@ export const Header: FC<Props> = ({
               </Button>
             </Link>
           )}
-          <div>{hasCartButton && <CartButton />}</div>
+          {session && (
+            <div className='sticky top-0'>
+              {hasCartButton && <CartButton />}
+            </div>
+          )}
         </div>
       </Container>
+
+      {showScrollToTop && (
+        <Button
+          onClick={scrollToTop}
+          className='fixed bottom-10 right-4 p-3 bg-primary text-white rounded-full shadow-lg'
+        >
+          <ArrowUp size={24} />
+        </Button>
+      )}
     </header>
   )
 }

@@ -1,5 +1,10 @@
 import { z } from 'zod'
 
+/*
+  ZOD - для валидации form
+  refine - для повторной проверки пароля
+*/
+
 export const passwordSchema = z
   .string()
   .min(4, { message: 'Введите корректный пароль' })

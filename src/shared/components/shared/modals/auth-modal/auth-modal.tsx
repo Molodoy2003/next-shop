@@ -1,7 +1,7 @@
 import { signIn } from 'next-auth/react'
 import { FC, useState } from 'react'
 import { Button, Dialog } from '../../../ui'
-import { DialogContent } from '../../../ui/dialog'
+import { DialogContent, DialogTitle } from '../../../ui/dialog'
 import { Login } from './login'
 import { Register } from './register'
 
@@ -24,6 +24,7 @@ export const AuthModal: FC<Props> = ({ open, onClose }) => {
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className='w-[450px] bg-white p-10'>
+        <DialogTitle />
         {type === 'login' ? (
           <Login onClose={handleClose} />
         ) : (
@@ -31,6 +32,7 @@ export const AuthModal: FC<Props> = ({ open, onClose }) => {
         )}
 
         <hr />
+
         <div className='flex gap-2'>
           <Button
             variant='secondary'
@@ -69,6 +71,7 @@ export const AuthModal: FC<Props> = ({ open, onClose }) => {
             Google
           </Button>
         </div>
+
         <Button
           variant='outline'
           onClick={onSwitchType}

@@ -13,8 +13,6 @@ html {
   }
 }
 
-/*  re_2KaB2teB_G7WTXZV4GvPDz7yPxF4x1Rea */
-
 @layer base {
   :root {
     --foreground: 20 14.3% 4.1%;
@@ -84,6 +82,7 @@ html {
   }
 }
 
+/* Делаем toploader оранжевым  */
 #nprogress .bar {
   @apply bg-primary !important;
 }

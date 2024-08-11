@@ -1,8 +1,11 @@
 import { prisma } from '@/prisma/prisma-client'
-import { ProfileForm } from '@/src/shared/components/shared/ProfileForm'
+import { ProfileInfo } from '@/src/shared/components/shared/ProfileInfo'
 import { getUserSession } from '@/src/shared/lib/getUserSession'
-
 import { redirect } from 'next/navigation'
+
+/* 
+  getUserSession - так как у нас async function, нельзя использовать useSession(который вызывает useEffect) и делать компонент use client, getUserSession используем, потому что он не вызывает useEffect и не нужно делать use client component.
+*/
 
 export default async function ProfilePage() {
   const session = await getUserSession()
@@ -19,5 +22,5 @@ export default async function ProfilePage() {
     return redirect('/not-auth')
   }
 
-  return <ProfileForm data={user} />
+  return <ProfileInfo data={user} />
 }

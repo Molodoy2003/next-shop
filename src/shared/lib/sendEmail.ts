@@ -1,5 +1,10 @@
 import { Resend } from 'resend'
 
+/* to - кому отправляется письмо
+   subject - тема письма
+   template - функция, которая будет выполняться
+*/
+
 export const sendEmail = async (
   to: string,
   subject: string,

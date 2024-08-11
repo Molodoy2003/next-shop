@@ -15,7 +15,10 @@ export const Categories: FC<Props> = ({ items, className }) => {
 
   return (
     <div
-      className={cn('inline-flex gap-1 bg-gray-50 p-1 rounded-2xl', className)}
+      className={cn(
+        'flex justify-between gap-1 bg-gray-50 p-1 rounded-2xl',
+        className
+      )}
     >
       {items.map((item, id) => (
         <a

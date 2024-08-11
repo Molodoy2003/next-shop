@@ -1,6 +1,17 @@
 import { PaymentData } from '@/src/@types/types'
 import axios from 'axios'
 
+/* 
+  (Создает платёж и возвращает ссылку которая перенаправит юзера на оплату)
+  amount - сумма платежа
+  capture - автоматическое списание денег
+  metadata - доп инфа (передали id заказа)
+  comfirmation - после оплаты редирект на url
+
+  !!!!вопрос (comfirmation: как в деплое сделать так, чтоб оно редиректило на главную, ведь я не знаю свой url при деплое, тоесть я могу указать localost главную страницу, а до деплоя как мне понять, на какую страницу редиректить)
+  ДААААА, ВМЕСТО LOCALHOST В ENV НАДО БУДЕТ УКАЗАТЬ URL МОЕГО САЙТА
+*/
+
 interface Props {
   description: string
   orderId: number

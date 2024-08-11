@@ -12,7 +12,7 @@ interface Props {
   imageUrl?: string
 }
 
-export const InfoBlock: React.FC<Props> = ({
+export const NotAuthBlock: React.FC<Props> = ({
   className,
   title,
   text,

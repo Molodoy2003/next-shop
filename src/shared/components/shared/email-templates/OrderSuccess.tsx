@@ -15,7 +15,8 @@ export const OrderSuccess: FC<Props> = ({ orderId, items }) => {
       <ul>
         {items.map(item => (
           <li key={item.id}>
-            {item.productItem.product.name} | {item.productItem.price}₽
+            {item.productItem.product.name} x {item.quantity} | {''}
+            {item.productItem.price * item.quantity} ₽
           </li>
         ))}
       </ul>

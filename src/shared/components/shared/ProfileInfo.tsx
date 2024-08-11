@@ -20,7 +20,7 @@ interface Props {
   data: User
 }
 
-export const ProfileForm: React.FC<Props> = ({ data }) => {
+export const ProfileInfo: React.FC<Props> = ({ data }) => {
   const form = useForm({
     resolver: zodResolver(formRegisterSchema),
     defaultValues: {
@@ -39,7 +39,7 @@ export const ProfileForm: React.FC<Props> = ({ data }) => {
         password: data.password,
       })
 
-      toast.error('Данные обновлены 📝', {
+      toast.success('Данные обновлены 📝', {
         icon: '✅',
       })
     } catch (error) {
@@ -57,32 +57,44 @@ export const ProfileForm: React.FC<Props> = ({ data }) => {
 
   return (
     <Container className='my-10'>
-      <Title text={`Персональные данные`} size='md' className='font-bold' />
+      <Title text='Персональные данные' size='md' className='font-bold' />
 
       <FormProvider {...form}>
         <form
-          className='flex flex-col gap-5 w-96 mt-10'
+          className='flex flex-col gap-5 w-[800px] mt-10'
           onSubmit={form.handleSubmit(onSubmit)}
         >
-          <FormInput name='email' label='E-Mail' required />
-          <FormInput name='fullName' label='Полное имя' required />
+          <div className='flex flex-wrap gap-6'>
+            <FormInput
+              className='w-[380px]'
+              name='email'
+              label='E-Mail'
+              required
+            />
+            <FormInput
+              className='w-[380px]'
+              name='fullName'
+              label='Полное имя'
+              required
+            />
 
-          <FormInput
-            type='password'
-            name='password'
-            label='Новый пароль'
-            required
-          />
-          <FormInput
-            type='password'
-            name='confirmPassword'
-            label='Повторите пароль'
-            required
-          />
+            <FormInput
+              className='w-[380px]'
+              type='password'
+              name='password'
+              label='Новый пароль'
+            />
+            <FormInput
+              className='w-[380px]'
+              type='password'
+              name='confirmPassword'
+              label='Повторите пароль'
+            />
+          </div>
 
           <Button
             disabled={form.formState.isSubmitting}
-            className='text-base mt-10'
+            className='text-base mt-5 w-80'
             type='submit'
           >
             Сохранить
@@ -90,9 +102,9 @@ export const ProfileForm: React.FC<Props> = ({ data }) => {
 
           <Button
             onClick={onClickSignOut}
-            variant='secondary'
+            variant='outline'
             disabled={form.formState.isSubmitting}
-            className='text-base'
+            className='text-base w-80'
             type='button'
           >
             Выйти

@@ -8,6 +8,11 @@ import { FormInput } from '../../form-components/FormInput'
 import { Title } from '../../Title'
 import { formLoginSchema, TFormLoginValues } from './schemas'
 
+/*
+  resolver - добавляем валидацию к полям
+  credentials - провайдер
+*/
+
 interface Props {
   onClose?: VoidFunction
 }
@@ -39,7 +44,7 @@ export const Login: FC<Props> = ({ onClose }) => {
       onClose?.()
     } catch (error) {
       console.error(error)
-      toast.error('Не удалось войти в аккаунт', {
+      toast.error('Неверный логин или пароль', {
         icon: '❌',
       })
     }

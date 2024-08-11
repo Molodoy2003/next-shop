@@ -48,6 +48,7 @@ const ProductsGroupList: FC<IProductsGroupList> = ({
             imageUrl={product.imageUrl}
             price={product.items[0].price}
             ingredients={product.ingredients}
+            product={product}
           />
         ))}
       </div>

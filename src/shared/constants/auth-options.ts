@@ -1,17 +1,16 @@
+import { prisma } from '@/prisma/prisma-client'
+import { UserRole } from '@prisma/client'
+import { compare, hashSync } from 'bcrypt'
 import { AuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GitHubProvider from 'next-auth/providers/github'
 
-import { prisma } from '@/prisma/prisma-client'
-import { UserRole } from '@prisma/client'
-import { compare, hashSync } from 'bcrypt'
+/* 
+  CredentialsProvider - провайдер для входа через логин и пароль
+*/
 
 export const authOptions: AuthOptions = {
   providers: [
-    // GoogleProvider({
-    //   clientId: process.env.GOOGLE_CLIENT_ID || '',
-    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-    // }),
     GitHubProvider({
       clientId: process.env.GITHUB_ID || '',
       clientSecret: process.env.GITHUB_SECRET || '',
@@ -77,6 +76,7 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async signIn({ user, account }) {
       try {
+        // провайдер, когда мы сами вводим email и password
         if (account?.provider === 'credentials') {
           return true
         }
@@ -85,6 +85,7 @@ export const authOptions: AuthOptions = {
           return false
         }
 
+        // providerId - айди аккаунта с гитхаба
         const findUser = await prisma.user.findFirst({
           where: {
             OR: [
@@ -97,6 +98,7 @@ export const authOptions: AuthOptions = {
           },
         })
 
+        // обновляем аккаунт в нашей бд
         if (findUser) {
           await prisma.user.update({
             where: {
@@ -111,6 +113,7 @@ export const authOptions: AuthOptions = {
           return true
         }
 
+        // если мы не нашли такого пользователя, то создаем нового
         await prisma.user.create({
           data: {
             email: user.email,
