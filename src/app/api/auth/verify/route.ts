@@ -35,7 +35,13 @@ export async function GET(req: NextRequest) {
       },
     })
 
-    return NextResponse.redirect(new URL('/?verified', req.url))
+    const redirectUrl = new URL(req.url)
+    redirectUrl.pathname = '/'
+    redirectUrl.search = '?verified'
+
+    return NextResponse.redirect(redirectUrl.toString())
+
+    // return NextResponse.redirect(new URL('/?verified', req.url))
   } catch (error) {
     console.error(error)
     return NextResponse.json({ message: 'Ошибка' }, { status: 500 })
