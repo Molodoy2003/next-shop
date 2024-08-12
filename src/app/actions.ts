@@ -153,6 +153,7 @@ export async function updateUserInfo(body: Prisma.UserCreateInput) {
     throw error
   }
 }
+
 export async function registerUser(body: Prisma.UserCreateInput) {
   try {
     const user = await prisma.user.findFirst({
