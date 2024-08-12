@@ -87,7 +87,7 @@ export const Header: FC<Props> = ({
           <div className='flex items-center gap-4'>
             <Image src='/logo.png' alt='logo' width={35} height={35} />
             <div>
-              <h1 className='text-2xl uppercase font-black'>Test TasteTown</h1>
+              <h1 className='text-2xl uppercase font-black'>TasteTown</h1>
               <p className='text-base text-gray-400 leading-3'>
                 вкусней уже некуда
               </p>
