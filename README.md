@@ -1,5 +1,5 @@
 
-link to deployment: https://next-shop-ashen-one.vercel.app/
+link to deployment: [https://next-shop-ashen-one.vercel.app/
 
 
 ## Getting Started
