@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest) {
   try {
-    // const code = req.nextUrl.searchParams.get('code');
     const code = req.nextUrl.searchParams.get('code')
 
     if (!code) {
@@ -35,13 +34,13 @@ export async function GET(req: NextRequest) {
       },
     })
 
-    const redirectUrl = new URL(req.url)
-    redirectUrl.pathname = '/'
-    redirectUrl.search = '?verified'
+    // const redirectUrl = new URL(req.url)
+    // redirectUrl.pathname = '/'
+    // redirectUrl.search = '?verified'
 
-    return NextResponse.redirect(redirectUrl.toString())
+    // return NextResponse.redirect(redirectUrl.toString())
 
-    // return NextResponse.redirect(new URL('/?verified', req.url))
+    return NextResponse.redirect(new URL('/?verified', req.url))
   } catch (error) {
     console.error(error)
     return NextResponse.json({ message: 'Ошибка' }, { status: 500 })
