@@ -8,8 +8,9 @@ import { PizzaSize, PizzaType } from '../../constants/pizza'
 import { useFerchCart } from '../../hooks/use-fetch-cart'
 import { getCartItemDetails } from '../../lib/getCartItemDetails'
 import { cn } from '../../lib/utils'
-import { Button, Sheet } from '../ui'
+import { Button } from '../ui/button'
 import {
+  Sheet,
   SheetClose,
   SheetContent,
   SheetFooter,

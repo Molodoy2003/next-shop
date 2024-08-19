@@ -2,7 +2,7 @@ import { ArrowRight, Package, Percent, Truck } from 'lucide-react'
 import { FC } from 'react'
 import { useFerchCart } from '../../../hooks/use-fetch-cart'
 import { cn } from '../../../lib/utils'
-import { Button } from '../../ui'
+import { Button } from '../../ui/button'
 import { WhiteBlock } from '../white-block'
 import { CheckoutDetails } from './CheckoutDetails'
 

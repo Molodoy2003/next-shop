@@ -4,7 +4,7 @@ import { ArrowRight, ShoppingCart } from 'lucide-react'
 import { FC } from 'react'
 import { cn } from '../../lib/utils'
 import { useCartStore } from '../../store/cart'
-import { Button } from '../ui'
+import { Button } from '../ui/button'
 import { CartDrawer } from './CartDrawer'
 
 type Props = {

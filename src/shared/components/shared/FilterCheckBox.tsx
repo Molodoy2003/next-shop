@@ -1,6 +1,11 @@
 import React from 'react'
 import { Checkbox } from '../ui/checkbox'
 
+/* 
+  endAdornment - дополнительный элемент,
+  в label свойство htmlfor для того, чтобы при клике на этот label, срабатывал checkbox
+*/
+
 export interface FilterChecboxProps {
   text: string
   value: string
@@ -24,7 +29,7 @@ export const FilterCheckbox: React.FC<FilterChecboxProps> = ({
         onCheckedChange={onCheckedChange}
         checked={checked}
         value={value}
-        className='rounded-[8px] w-6 h-6'
+        className='rounded-[8px] bg-[#dcd9d9] w-6 h-6'
         id={`checkbox-${String(name)}-${String(value)}`}
       />
       <label

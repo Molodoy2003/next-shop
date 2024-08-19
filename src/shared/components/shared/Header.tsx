@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { Button } from '../ui'
+import { Button } from '../ui/button'
 import { CartButton } from './CartButton'
 import { Container } from './Container'
 import { SearchInput } from './SearchInput'
@@ -89,7 +89,7 @@ export const Header: FC<Props> = ({
             <div>
               <h1 className='text-2xl uppercase font-black'>TasteTown</h1>
               <p className='text-base text-gray-400 leading-3'>
-                вкусней уже некуда
+                самая вкусная еда
               </p>
             </div>
           </div>

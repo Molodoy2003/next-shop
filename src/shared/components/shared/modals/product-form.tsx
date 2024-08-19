@@ -1,6 +1,9 @@
+'use client'
+
 import { cn } from '@/src/shared/lib/utils'
+import { useSession } from 'next-auth/react'
 import { FC } from 'react'
-import { Button } from '../../ui'
+import { Button } from '../../ui/button'
 import { Title } from '../Title'
 
 type Props = {
@@ -20,6 +23,8 @@ export const ProductForm: FC<Props> = ({
   price,
   onSubmit,
 }) => {
+  const { data: session } = useSession()
+
   return (
     <div className={cn(className, 'flex flex-1')}>
       <div className='flex items-center justify-center flex-1 relative w-full'>
@@ -35,6 +40,7 @@ export const ProductForm: FC<Props> = ({
           <Title text={name} size='md' className='font-extrabold mb-1' />
         </div>
         <Button
+          disabled={!session}
           loading={loading}
           onClick={onSubmit}
           className='h-[55px] px-10 text-base rounded-[18px] w-full mt-auto'

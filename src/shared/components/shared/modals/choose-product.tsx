@@ -2,11 +2,11 @@
 
 import { ProductWithRelations } from '@/src/@types/types'
 import { useCartStore } from '@/src/shared/store/cart'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { FC } from 'react'
 import toast from 'react-hot-toast'
-import { Dialog } from '../../ui'
-import { DialogContent } from '../../ui/dialog'
+import { Dialog, DialogContent } from '../../ui/dialog'
 import { PizzaForm } from './pizza-form'
 import { ProductForm } from './product-form'
 
@@ -18,6 +18,7 @@ interface Props {
 export const ChooseProduct: FC<Props> = ({ product, className }) => {
   const router = useRouter()
   const firstItem = product.items[0]
+  const { data: session } = useSession()
   const isPizzaForm = Boolean(firstItem.pizzaType)
   const { addCartItem, loading } = useCartStore(state => state)
 
@@ -52,7 +53,7 @@ export const ChooseProduct: FC<Props> = ({ product, className }) => {
             imageUrl={product.imageUrl}
             onSubmit={onAddPizza}
             currentItemId={0}
-            loading={loading}
+            loading={session ? loading : false}
           />
         ) : (
           <ProductForm
@@ -60,7 +61,7 @@ export const ChooseProduct: FC<Props> = ({ product, className }) => {
             name={product.name}
             imageUrl={product.imageUrl}
             price={firstItem.price}
-            loading={loading}
+            loading={session ? loading : false}
           />
         )}
       </DialogContent>

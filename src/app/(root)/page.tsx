@@ -16,7 +16,7 @@ export default async function Home({
 
   return (
     <>
-      <Container className='mt-5'>
+      <Container className=''>
         <Title text='Все продукты' size='lg' className='font-extrabold' />
       </Container>
       <TopBar

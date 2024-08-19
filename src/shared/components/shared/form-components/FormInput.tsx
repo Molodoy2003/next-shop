@@ -3,7 +3,7 @@
 import { X } from 'lucide-react'
 import { FC } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { Input } from '../../ui'
+import { Input } from '../../ui/input'
 
 interface Props extends React.InputHTMLAttributes<HTMLElement> {
   className?: string

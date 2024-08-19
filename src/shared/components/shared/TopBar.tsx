@@ -2,6 +2,7 @@
 
 import { cn } from '@/src/shared/lib/utils'
 import { Category } from '@prisma/client'
+import { useSession } from 'next-auth/react'
 import { FC, useEffect, useRef, useState } from 'react'
 import { CartButton } from './CartButton'
 import { Categories } from './Categories'
@@ -15,6 +16,7 @@ type Props = {
 export const TopBar: FC<Props> = ({ categories, className }) => {
   const topBarRef = useRef<HTMLDivElement | null>(null)
   const [isSticky, setIsSticky] = useState(false)
+  const { data: session } = useSession()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,13 +37,13 @@ export const TopBar: FC<Props> = ({ categories, className }) => {
     <div
       ref={topBarRef}
       className={cn(
-        'sticky top-0 bg-white py-5 shadow-lg shadow-black/5 z-10',
+        'sticky top-0 bg-white py-1 shadow-lg shadow-black/5 z-10',
         className
       )}
     >
       <Container className='flex items-center justify-between'>
         <Categories items={categories} />
-        {isSticky && <CartButton className='ml-auto' />}
+        {isSticky && session && <CartButton className='ml-auto' />}
       </Container>
     </div>
   )

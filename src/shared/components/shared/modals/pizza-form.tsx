@@ -1,3 +1,5 @@
+'use client'
+
 import {
   mapTypes,
   PizzaSize,
@@ -5,11 +7,13 @@ import {
   PizzaType,
   pizzaTypes,
 } from '@/src/shared/constants/pizza'
+import { calcTotalPrice } from '@/src/shared/lib/calcTotalPrice'
 import { cn } from '@/src/shared/lib/utils'
 import { Ingredient, ProductItem } from '@prisma/client'
+import { useSession } from 'next-auth/react'
 import { FC, useState } from 'react'
 import { useSet } from 'react-use'
-import { Button } from '../../ui'
+import { Button } from '../../ui/button'
 import { IngredientItem } from '../IngredientItem'
 import { ProductImage } from '../ProductImage'
 import { Title } from '../Title'
@@ -35,21 +39,21 @@ export const PizzaForm: FC<Props> = ({
   items,
   onSubmit,
 }) => {
+  const { data: session } = useSession()
   const [size, setSize] = useState<PizzaSize>(20)
   const [type, setType] = useState<PizzaType>(1)
   const [selectedIngredients, { toggle: addIngredient }] = useSet(
     new Set<number>([])
   )
+
   const textDetails = `${size} см, ${mapTypes[type]} тесто`
-
-  const pizzaPrice = items.find(
-    item => item.pizzaType === type && item.size === size
-  )!.price
-  const ingredientsPrice = ingredients
-    .filter(item => selectedIngredients.has(item.id))
-    .reduce((acc, item) => acc + item.price, 0)
-
-  const totalPrice = pizzaPrice + ingredientsPrice
+  const totalPrice = calcTotalPrice(
+    type,
+    size,
+    items,
+    ingredients,
+    selectedIngredients
+  )
 
   const currentItemId = items.find(
     item => item.pizzaType === type && item.size === size
@@ -100,6 +104,7 @@ export const PizzaForm: FC<Props> = ({
           </div>
         </div>
         <Button
+          disabled={!session}
           loading={loading}
           onClick={handleClickAdd}
           className='h-[55px] px-10 text-base rounded-[18px] w-full mt-auto'

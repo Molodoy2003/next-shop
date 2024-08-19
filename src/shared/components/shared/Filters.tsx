@@ -5,7 +5,7 @@ import { FC } from 'react'
 import { useFilters } from '../../hooks/use-filters'
 import { useIngredients } from '../../hooks/use-ingredients'
 import { useQueryFilters } from '../../hooks/use-query-filters'
-import { Input } from '../ui'
+import { Input } from '../ui/input'
 import { CheckBoxFiltersGroup } from './CheckBoxFiltersGroup'
 import { RangeSlider } from './RangeSlider'
 import { Title } from './Title'
@@ -58,6 +58,7 @@ export const Filters: FC<Props> = ({ className }) => {
           { text: '40 см', value: '40' },
         ]}
       />
+
       {/* Фильтр цен */}
       <div className='mt-5 border-y border-y-neutral-100 py-6 pb-7'>
         <p className='font-bold mt-3'>Цена от и до:</p>
@@ -92,14 +93,15 @@ export const Filters: FC<Props> = ({ className }) => {
           onValueChange={updatePrices}
         />
       </div>
+
       {/* Нижние чекбоксы */}
       <CheckBoxFiltersGroup
         name='ingredients'
         title='Ингредиенты'
         className='mt-5'
         limit={6}
-        defaultItems={items.slice(0, 6)}
         items={items}
+        defaultItems={items.slice(0, 6)}
         loading={loading}
         onClickCheckbox={filters.setSelectedIngredients}
         selected={filters.selectedIngredients}

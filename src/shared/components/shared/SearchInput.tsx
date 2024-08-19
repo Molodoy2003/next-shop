@@ -53,10 +53,10 @@ export const SearchInput: FC<IProps> = ({ className }) => {
         <input
           value={searchValue}
           onChange={e => setSearchValue(e.target.value)}
+          onFocus={() => setFocused(true)}
           className='rounded-xl placeholder:text-gray-600 outline-none w-full bg-gray-100 pl-11'
           type='text'
-          placeholder='Найти пиццу...'
-          onFocus={() => setFocused(true)}
+          placeholder='Найти продукт...'
         />
         {searchValue && (
           <X
@@ -64,6 +64,7 @@ export const SearchInput: FC<IProps> = ({ className }) => {
             className='cursor-pointer absolute top-1/2 translate-y-[-50%] right-3 h-5 text-gray-500'
           />
         )}
+
         {products.length > 0 && (
           <div
             className={cn(
@@ -75,7 +76,7 @@ export const SearchInput: FC<IProps> = ({ className }) => {
               <Link
                 onClick={onClickItem}
                 key={item.id}
-                className='flex items-center gap-3 px-3 w-full py-2 hover:bg-primary/10 cursor-pointer'
+                className='flex items-center gap-3 px-3 w-full py-2 hover:bg-primary/15'
                 href={`/product/${item.id}`}
               >
                 <img

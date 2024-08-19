@@ -51,14 +51,14 @@ model Category {
 model Product {
     id Int @id @default(autoincrement())
 
-    name     String
-    imageUrl String
+    name       String
+    imageUrl   String
+    categoryId Int
 
     ingredients Ingredient[]
     items       ProductItem[]
 
-    category   Category @relation(fields: [categoryId], references: [id])
-    categoryId Int
+    category Category @relation(fields: [categoryId], references: [id])
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -99,9 +99,8 @@ model Cart {
 
     items CartItem[]
 
-    token String
-
-    totalAmount Int @default(0)
+    token       String
+    totalAmount Int    @default(0)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -113,10 +112,10 @@ model CartItem {
     cart   Cart @relation(fields: [cartId], references: [id])
     cartId Int
 
-    productItem   ProductItem @relation(fields: [productItemId], references: [id])
-    productItemId Int
+    productItem ProductItem @relation(fields: [productItemId], references: [id])
 
-    quantity Int @default(1)
+    quantity      Int @default(1)
+    productItemId Int
 
     ingredients Ingredient[]
 

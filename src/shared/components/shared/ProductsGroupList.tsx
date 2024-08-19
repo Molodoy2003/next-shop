@@ -8,6 +8,10 @@ import { useCategoryStore } from '../../store/category'
 import { ProductCard } from './ProductCard'
 import { Title } from './Title'
 
+/*
+  из react-use достали useIntersection, для категорий, во время скролла чтоб меняло категорию
+*/
+
 interface IProductsGroupList {
   className?: string
   items: ProductWithRelations[]
@@ -29,6 +33,7 @@ const ProductsGroupList: FC<IProductsGroupList> = ({
     threshold: 0.4,
   })
 
+  // if (intersection?.isIntersecting) - область видимости экрана
   useEffect(() => {
     if (intersection?.isIntersecting) {
       setActiceCategoryId(categoryId)

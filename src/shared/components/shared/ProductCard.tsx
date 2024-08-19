@@ -3,11 +3,12 @@
 import { ProductWithRelations } from '@/src/@types/types'
 import { Ingredient } from '@prisma/client'
 import { Plus } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { FC } from 'react'
 import toast from 'react-hot-toast'
 import { useCartStore } from '../../store/cart'
-import { Button } from '../ui'
+import { Button } from '../ui/button'
 import { Title } from './Title'
 
 interface IProductCard {
@@ -31,6 +32,7 @@ export const ProductCard: FC<IProductCard> = ({
 }) => {
   const { addCartItem } = useCartStore(state => state)
   const firstItem = product?.items[0]
+  const { data: session } = useSession()
 
   const onAddProduct = () => {
     try {
@@ -54,7 +56,7 @@ export const ProductCard: FC<IProductCard> = ({
 
         <Title text={name} size='sm' className='mb-1 mt-3 font-bold' />
         <p className='text-sm text-gray-400'>
-          {ingredients.map(item => item.name).join(', ')}
+          {ingredients.map(ingredient => ingredient.name).join(', ')}
         </p>
       </Link>
 
@@ -63,16 +65,15 @@ export const ProductCard: FC<IProductCard> = ({
           от <b>{price} ₽</b>
         </span>
 
-        {/* <Link href={`/product/${id}`}> */}
         <Button
+          disabled={!session}
           onClick={onAddProduct}
           variant='secondary'
-          className='text-base font-bold'
+          className='text-base font-bold disabled:text-black'
         >
           <Plus size={20} className='mr-1' />
           Добавить
         </Button>
-        {/* </Link> */}
       </div>
     </div>
   )

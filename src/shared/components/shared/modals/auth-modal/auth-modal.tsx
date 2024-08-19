@@ -1,7 +1,7 @@
 import { signIn } from 'next-auth/react'
 import { FC, useState } from 'react'
-import { Button, Dialog } from '../../../ui'
-import { DialogContent, DialogTitle } from '../../../ui/dialog'
+import { Button } from '../../../ui/button'
+import { Dialog, DialogContent, DialogTitle } from '../../../ui/dialog'
 import { Login } from './login'
 import { Register } from './register'
 

@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { useSet } from 'react-use'
-import { Input, Skeleton } from '../ui'
+import { Input } from '../ui/input'
+import { Skeleton } from '../ui/skeleton'
 import { FilterChecboxProps, FilterCheckbox } from './FilterCheckBox'
 
 type Item = FilterChecboxProps
@@ -10,8 +10,8 @@ type Item = FilterChecboxProps
 interface IProps {
   className?: string
   title: string
-  items: Item[]
-  defaultItems?: Item[]
+  items: Item[] // all
+  defaultItems?: Item[] // 6
   loading?: boolean
   limit?: number
   searchInputPlaceholder?: string
@@ -32,21 +32,14 @@ export function CheckBoxFiltersGroup({
   selected,
   name,
   onClickCheckbox,
-  defaultValue,
 }: IProps) {
   const [showAll, setShowAll] = useState(false)
   const [searchValue, setSearchValue] = useState('')
-  const [set, { toggle }] = useSet(new Set<string>([]))
-
-  const onChangeSearchInput = (value: string) => {
-    setSearchValue(value)
-  }
 
   if (loading) {
     return (
-      <div className={className}>
-        <p className='font-bold mt-3'>{title}</p>
-
+      <div>
+        <p className='font-bold mb-3'>{title}</p>
         {...Array(limit)
           .fill(0)
           .map((_, index) => (
@@ -69,9 +62,9 @@ export function CheckBoxFiltersGroup({
       {showAll && (
         <div className='mb-5'>
           <Input
-            onChange={e => onChangeSearchInput(e.target.value)}
+            onChange={e => setSearchValue(e.target.value)}
             placeholder={searchInputPlaceholder}
-            className='bg-gray-100 border-none'
+            className='bg-gray-100 text-sm border-none'
           />
         </div>
       )}
@@ -91,7 +84,7 @@ export function CheckBoxFiltersGroup({
       </div>
 
       {items.length > limit && (
-        <div className={showAll ? 'border-t border-t-neutral-100 mt-4' : ''}>
+        <div>
           <button
             className='text-primary mt-3'
             onClick={() => setShowAll(!showAll)}

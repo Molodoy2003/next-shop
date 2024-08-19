@@ -1,3 +1,3 @@
-import { CountButton } from '@/CountButton'
+import { CountButton } from '../CountButton'
 
 export const CartItemDetailsCountButton = CountButton

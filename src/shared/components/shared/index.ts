@@ -1,8 +1,0 @@
-export { Categories } from './Categories'
-export { Container } from './Container'
-export { FilterCheckbox } from './FilterCheckBox'
-export { Filters } from './Filters'
-export { Header } from './Header'
-export { RangeSlider } from './RangeSlider'
-export { Title } from './Title'
-export { TopBar } from './TopBar'
