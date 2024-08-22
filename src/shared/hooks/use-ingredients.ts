@@ -2,6 +2,10 @@ import { Ingredient } from '@prisma/client'
 import { useEffect, useState } from 'react'
 import { Api } from '../services/api-client'
 
+/*
+  Получает список ингредиентов и хранит выбранные ингредиенты
+*/
+
 export const useIngredients = () => {
   const [ingredients, setIngredients] = useState<Ingredient[]>([])
   const [loading, setLoading] = useState(true)

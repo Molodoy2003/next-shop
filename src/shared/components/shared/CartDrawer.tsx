@@ -21,6 +21,10 @@ import {
 import { CartItem } from './CartItem'
 import { Title } from './Title'
 
+/*
+  SheetTrigger - вешается на кнопку для открытия дравера, тоесть на cartButton
+*/
+
 export const CartDrawer: FC<React.PropsWithChildren> = ({ children }) => {
   const { totalAmount, updateItemQuantity, items, deleteCartItem } =
     useFerchCart()
@@ -104,6 +108,7 @@ export const CartDrawer: FC<React.PropsWithChildren> = ({ children }) => {
                   />
                 ))}
               </div>
+
               <SheetFooter className='-mx-6 p-8 bg-white'>
                 <div className='w-full'>
                   <div className='flex mb-4'>

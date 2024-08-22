@@ -7,6 +7,10 @@ import { useCartStore } from '../../store/cart'
 import { Button } from '../ui/button'
 import { CartDrawer } from './CartDrawer'
 
+/*
+  обернул в CartDrawer для отображения дравера при клике на кнопку
+*/
+
 type Props = {
   className?: string
 }

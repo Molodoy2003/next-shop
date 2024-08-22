@@ -15,7 +15,7 @@ import { FC, useState } from 'react'
 import { useSet } from 'react-use'
 import { Button } from '../../ui/button'
 import { IngredientItem } from '../IngredientItem'
-import { ProductImage } from '../ProductImage'
+import { PizzaImage } from '../PizzaImage'
 import { Title } from '../Title'
 import { Variants } from '../Variants'
 
@@ -55,6 +55,7 @@ export const PizzaForm: FC<Props> = ({
     selectedIngredients
   )
 
+  // находим айдишник товара со всеми параметрами
   const currentItemId = items.find(
     item => item.pizzaType === type && item.size === size
   )?.id
@@ -67,7 +68,7 @@ export const PizzaForm: FC<Props> = ({
 
   return (
     <div className={cn(className, 'flex flex-1')}>
-      <ProductImage imageUrl={imageUrl} size={size} />
+      <PizzaImage imageUrl={imageUrl} size={size} />
 
       <div className='w-[490px] bg-[#f7f6f5] p-7 flex flex-col'>
         <div className='flex-1'>

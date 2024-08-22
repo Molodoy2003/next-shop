@@ -35,7 +35,7 @@ export const ChooseProduct: FC<Props> = ({ product, className }) => {
   const onAddPizza = async (productItemId: number, ingredients: number[]) => {
     try {
       await addCartItem({ ingredients, productItemId })
-      toast.success('Пицца добавлена в корзину')
+      toast.success(`${product.name} добавлена в корзину`)
       router.back()
     } catch (error) {
       toast.error('Не удалось добавить пиццу в корзину')

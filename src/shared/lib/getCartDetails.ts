@@ -1,6 +1,10 @@
 import { CartDTO } from '@/src/@types/types'
 import { calcCartItemPrice } from './calcCartItemPrice'
 
+/* 
+  получает инфу о корзине и обрабатывает данные для нужного формата
+*/
+
 export type CartItem = {
   id: number
   quantity: number

@@ -7,7 +7,7 @@ interface Props {
   size: 20 | 30 | 40
 }
 
-export const ProductImage: FC<Props> = ({ size, imageUrl, className }) => {
+export const PizzaImage: FC<Props> = ({ size, imageUrl, className }) => {
   return (
     <div
       className={cn(
@@ -27,9 +27,6 @@ export const ProductImage: FC<Props> = ({ size, imageUrl, className }) => {
           }
         )}
       />
-
-      <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border-dashed border-2 rounded-full border-gray-200 w-[350px] h-[350px]'></div>
-      <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border-dashed border-2 rounded-full border-gray-100 w-[270px] h-[270px]'></div>
     </div>
   )
 }

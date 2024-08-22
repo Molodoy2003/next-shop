@@ -5,6 +5,10 @@ import { updateCartAmount } from '@/src/shared/lib/updateCartAmout'
 import crypto from 'crypto'
 import { NextRequest, NextResponse } from 'next/server'
 
+/*
+  при помощи crypto создаем рандомный токен
+*/
+
 export async function GET(req: NextRequest) {
   try {
     const token = req.cookies.get('cartToken')?.value
@@ -43,6 +47,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
+// находим или создаем корзину корзины
 export async function POST(req: NextRequest) {
   try {
     let token = req.cookies.get('cartToken')?.value
@@ -55,6 +60,7 @@ export async function POST(req: NextRequest) {
 
     const data = (await req.json()) as CreateCartItemValues
 
+    // если добавляем пиццу с такими же ингредиентами, то увеличиваем quantity, иначе создаем товар в корзине
     const findCartItem = await prisma.cartItem.findFirst({
       where: {
         cartId: userCart.id,

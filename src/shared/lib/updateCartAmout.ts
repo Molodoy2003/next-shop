@@ -1,6 +1,10 @@
 import { prisma } from '@/prisma/prisma-client'
 import { calcCartItemPrice } from './calcCartItemPrice'
 
+/*
+  обновляем стоимость корзины после обновления количества товара
+*/
+
 export const updateCartAmount = async (token: string) => {
   const userCart = await prisma.cart.findFirst({
     where: {
